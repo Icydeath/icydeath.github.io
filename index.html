@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>FFXI Braver Skillchains</title>				
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+		<link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="css/bravericons.css" rel="stylesheet" />
+		<link href="css/braverstyles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">Final Fantasy XI Braver - Skillchain Calculator</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto"></ul>
+                </div>
+            </div>
+        </nav>
+		<div class="page-bg-wrap">
+			<img class="page-bg" src="images/titlescreen.png" alt="">
+			<!-- Page content-->
+			<div class="container min-vh-100">
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-2">
+						<span class="align-middle float-right" style="font-size:24px;font-weight: bold;">Job:</span>
+					</div>
+					<div class="col-2">
+						<div class="input-group">
+						  <select class="custom-select" id="selectJob1">
+							<option selected>Choose...</option>
+						  </select>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="input-group">
+						  <select class="custom-select" id="selectJob2">
+							<option selected>Choose...</option>
+						  </select>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="input-group">
+						  <select class="custom-select" id="selectJob3">
+							<option selected>Choose...</option>
+						  </select>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="input-group">
+						  <select class="custom-select" id="selectJob4">
+							<option selected>Choose...</option>
+						  </select>
+						</div>
+					</div>
+					<div class="col-2">
+						<button id="clearJobs" type="button" class="btn btn-secondary">Clear</button>
+					</div>
+				</div>
+				
+				<div class="row" style="margin-top: 20px;">
+					<div class="col-2">
+						<span class="align-middle float-right" style="font-size:24px;font-weight: bold;">Weapon:</span>
+					</div>
+					<div class="col-2">
+						<div class="input-group">
+						  <select class="custom-select" id="selectWeapon1">
+							<option selected>Choose...</option>
+						  </select>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="input-group">
+						  <select class="custom-select" id="selectWeapon2">
+							<option selected>Choose...</option>
+						  </select>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="input-group">
+						  <select class="custom-select" id="selectWeapon3">
+							<option selected>Choose...</option>
+						  </select>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="input-group">
+						  <select class="custom-select" id="selectWeapon4">
+							<option selected>Choose...</option>
+						  </select>
+						</div>
+					</div>
+					<div class="col-2">
+						<button id="clearWeapons" type="button" class="btn btn-secondary">Clear</button>
+					</div>
+				</div>
+				
+				<div class="row" style="margin-top: 10px;"><!-- style="margin-top: 20px;" -->
+					<div class="col-2">
+						<div class="align-top float-right" style="display: none;">
+							<button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target=".weapons-model"><i class="fa fa-question-circle"></i></button>
+						</div>
+					</div>
+					<div class="col-8">
+						<div class="form-check form-check-inline align-middle">
+						  <input class="form-check-input" type="checkbox" id="selfSkillchains" checked>
+						  <label class="form-check-label" for="selfSkillchains">Self skillchains</label>
+						</div>
+						<div class="form-check form-check-inline align-middle">
+						  <input class="form-check-input" type="checkbox" id="relicSkillchains" checked>
+						  <label class="form-check-label" for="relicSkillchains">Relic weaponskills</label>
+						</div>
+					</div>
+					<div class="col-2 text-right">
+						<button id="toggleIconsBtn" class="btn btn-sm btn-link" type="button" data-toggle="collapse" data-target="#iconsDiv" aria-expanded="false" aria-controls="iconsDiv"><i class="icontoggle fa fa-caret-up" aria-hidden="true"></i> KEY</button>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px;margin-bottom: 10px;"><div class="col-12" style="border:1px solid lightgray"></div></div>
+				
+				<div class="row" style="margin-top: 10px;">
+					<!-- <div class="col-2 text-center"> <span class="align-middle float-right" style="font-size:24px;font-weight: bold;">Skillchains:</span> </div> -->
+					<div class="col-2"></div>
+					<div class="col" id="skillchains_container"></div> <!--style="min-height: 200px;"-->
+				</div>
+				
+				<div id="iconsDiv" class="collapse" style="margin-top: 20px;">
+					<!--<div class="row" style="margin-top: 20px;margin-bottom: 20px;border:1px solid lightgray"></div>-->
+					<div class="row" style="margin-top: 10px">
+						<div class="col-12 text-right">
+							<a id="collapseIconsBtn" class="close text-danger" data-toggle="collapse" data-target="#iconsDiv" title="Close"><i class="fa fa-close"></i></a>
+						</div>
+					</div>
+					
+					<div class='border border-secondary rounded bg-light' style="padding-left: 20px;">
+						<div class="row" style="font-size:24px;font-weight: bold;"><div class="col text-center"><u>Skillchains</u></div></div>
+						<div class="row" style="padding-top: 10px;font-weight: bold">
+							<div class="col text-center"><div class="fusionIcon" title="Fusion"></div></div>
+							<div class="col text-center"><div class="fragmentationIcon" title="Fragmentation"></div></div>
+							<div class="col text-center"><div class="distortionIcon" title="Distortion"></div></div>
+							<div class="col text-center"><div class="gravitationIcon" title="Gravitation"></div></div>
+							<div class="col text-center"><div class="scissionIcon" title="Scission"></div></div>
+							<div class="col text-center"><div class="detonationIcon" title="Detonation"></div></div>
+							<div class="col text-center"><div class="reverberationIcon" title="Reverberation"></div></div>
+							<div class="col text-center"><div class="indurationIcon" title="Induration"></div></div>
+							<div class="col text-center"><div class="liquefactionIcon" title="Liquefaction"></div></div>
+							<div class="col text-center"><div class="impactionIcon" title="Impaction"></div></div>
+							<div class="col text-center"><div class="lightskillchainIcon" title="Light"></div></div>
+							<div class="col text-center"><div class="darkskillchainIcon" title="Darkness"></div></div>
+						</div>
+						<div class="row" style="padding-bottom: 10px;font-weight: bold;font-size: 9px;">
+							<div class="col text-break">Fusion</div>
+							<div class="col text-break">Fragmentation</div>
+							<div class="col text-break">Distortion</div>
+							<div class="col text-break">Gravitation</div>
+							<div class="col text-break">Scission</div>
+							<div class="col text-break">Detonation</div>
+							<div class="col text-break">Reverberation</div>
+							<div class="col text-break">Induration</div>
+							<div class="col text-break">Liquefaction</div>
+							<div class="col text-break">Impaction</div>
+							<div class="col text-break">Light</div>
+							<div class="col text-break">Dark</div>
+						</div>
+					</div>
+					
+					
+					<div class='border border-secondary rounded bg-light' style="margin-top: 10px;padding-left: 20px;">
+						<div class="row" style="font-size:24px;font-weight: bold;"><div class="col text-center"><u>Elements</u></div></div>
+						<div class="row" style="padding-top: 10px;font-weight: bold">
+							<div class="col text-center"><div class="fireIcon" title="Fire"></div></div>
+							<div class="col text-center"><div class="iceIcon" title="Ice"></div></div>
+							<div class="col text-center"><div class="windIcon" title="Wind"></div></div>
+							<div class="col text-center"><div class="earthIcon" title="Earth"></div></div>
+							<div class="col text-center"><div class="lightningIcon" title="Lightning"></div></div>
+							<div class="col text-center"><div class="waterIcon" title="Water"></div></div>
+							<div class="col text-center"><div class="lightIcon" title="Light"></div></div>
+							<div class="col text-center"><div class="darkIcon" title="Dark"></div></div>
+						</div>
+						<div class="row" style="padding-bottom: 10px;font-weight: bold;font-size: 12px;">
+							<div class="col">Fire</div>
+							<div class="col">Ice</div>
+							<div class="col">Wind</div>
+							<div class="col">Earth</div>
+							<div class="col">Lightning</div>
+							<div class="col">Water</div>
+							<div class="col">Light</div>
+							<div class="col">Dark</div>
+						</div>
+					</div>
+					
+					
+					<div class='border border-secondary rounded bg-light' style="margin-top: 10px;padding-left: 20px;">
+						<div class="row" style="font-size:24px;font-weight: bold;"><div class="col text-center"><u>Weapons</u></div></div>
+						<div class="row" style="padding-top: 10px;font-weight: bold">
+							<div class="col text-center"><div class="bowIcon" title="Bow"></div></div>
+							<div class="col text-center"><div class="clubIcon" title="Club"></div></div>
+							<div class="col text-center"><div class="daggerIcon" title="Dagger"></div></div>
+							<div class="col text-center"><div class="greatkatanaIcon" title="Great Katana"></div></div>
+							<div class="col text-center"><div class="greatswordIcon" title="Great Sword"></div></div>
+							<div class="col text-center"><div class="gunIcon" title="Gun"></div></div>
+							<div class="col text-center"><div class="handtohandIcon" title="Hand-to-Hand"></div></div>
+							<div class="col text-center"><div class="polearmIcon" title="Polearm"></div></div>
+							<div class="col text-center"><div class="staffIcon" title="Staff"></div></div>
+							<div class="col text-center"><div class="swordIcon" title="Sword"></div></div>
+							<div class="col text-center"><div class="katanaIcon" title="Katana"></div></div>
+						</div>
+						<div class="row" style="padding-bottom: 10px;font-weight: bold;font-size: 12px;">
+							<div class="col text-break">Bow</div>
+							<div class="col text-break">Club</div>
+							<div class="col text-break">Dagger</div>
+							<div class="col text-break">Great Katana</div>
+							<div class="col text-break">Great Sword</div>
+							<div class="col text-break">Gun</div>
+							<div class="col text-break">Hand-to-Hand</div>
+							<div class="col text-break">Polearm</div>
+							<div class="col text-break">Staff</div>
+							<div class="col text-break">Sword</div>
+							<div class="col text-break">Katana</div>
+						</div>
+					</div>
+					
+					<div class='border border-secondary rounded bg-light' style="margin-top: 10px;padding-left: 20px;">
+						<div class="row" style="font-size:24px;font-weight: bold;"><div class="col text-center"><u>Jobs</u></div></div>
+						<div class="row" style="padding-top: 10px;font-weight: bold">
+							<div class="col text-center"><div class="bardIcon" title="Bard"></div></div>
+							<div class="col text-center"><div class="blackmageIcon" title="Black Mage"></div></div>
+							<div class="col text-center"><div class="bluemageIcon" title="Blue Mage"></div></div>
+							<div class="col text-center"><div class="corsairIcon" title="Corsair"></div></div>
+							<div class="col text-center"><div class="dancerIcon" title="Dancer"></div></div>
+							<div class="col text-center"><div class="darkknightIcon" title="Dark Knight"></div></div>
+							<div class="col text-center"><div class="dragoonIcon" title="Dragoon"></div></div>
+							<div class="col text-center"><div class="monkIcon" title="Monk"></div></div>
+							<div class="col text-center"><div class="ninjaIcon" title="Ninja"></div></div>
+						</div>
+						<div class="row" style="padding-bottom: 10px;font-weight: bold;font-size: 12px;">
+							<div class="col">Bard</div>
+							<div class="col">Black Mage</div>
+							<div class="col">Blue Mage</div>
+							<div class="col">Corsair</div>
+							<div class="col">Dancer</div>
+							<div class="col">Dark Knight</div>
+							<div class="col">Dragoon</div>
+							<div class="col">Monk</div>
+							<div class="col">Ninja</div>
+						</div>
+						<div class="row" style="padding-top: 10px;font-weight: bold">
+							<div class="col text-center"><div class="paladinIcon" title="Paladin"></div></div>
+							<div class="col text-center"><div class="rangerIcon" title="Ranger"></div></div>
+							<div class="col text-center"><div class="redmageIcon" title="Red Mage"></div></div>
+							<div class="col text-center"><div class="runeknightIcon" title="Rune Knight"></div></div>
+							<div class="col text-center"><div class="samuraiIcon" title="Samurai"></div></div>
+							<div class="col text-center"><div class="scholarIcon" title="Scholar"></div></div>
+							<div class="col text-center"><div class="thiefIcon" title="Thief"></div></div>
+							<div class="col text-center"><div class="warriorIcon" title="Warrior"></div></div>
+							<div class="col text-center"><div class="whitemageIcon" title="White Mage"></div></div>
+						</div>
+						<div class="row" style="padding-bottom: 10px;font-weight: bold;font-size: 12px;">
+							<div class="col">Paladin</div>
+							<div class="col">Ranger</div>
+							<div class="col">Red Mage</div>
+							<div class="col">Rune Knight</div>
+							<div class="col">Samurai</div>
+							<div class="col">Scholar</div>
+							<div class="col">Thief</div>
+							<div class="col">Warrior</div>
+							<div class="col">White Mage</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal fade weapons-model" tabindex="-1" role="dialog" aria-labelledby="weaponsModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="weaponsModalLabel">
+								Info
+							</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close text-danger" aria-hidden="true"></i></button>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+        <!-- Bootstrap core JS-->
+        <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+		<!-- Skillchains JS-->
+		<script src="js/skillchains.js"></script>
+    </body>
+</html>
