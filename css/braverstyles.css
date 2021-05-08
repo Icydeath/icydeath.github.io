@@ -1,0 +1,19 @@
+.page-bg-wrap {
+  overflow: hidden;
+  position: relative;
+
+}
+
+.page-bg {
+  opacity: 0.05;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+.icons.tooltip-inner {
+    width: 138px;
+}

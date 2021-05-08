@@ -1,0 +1,565 @@
+var element_info = {
+	'Fire': 'fireIcon',
+	'Ice': 'iceIcon',
+	'Wind': 'windIcon',
+	'Earth': 'earthIcon',
+	'Lightning': 'lightningIcon',
+	'Water': 'waterIcon',
+	'Light': 'lightIcon',
+	'Dark': 'darkIcon',
+};
+
+var skillchain_info = {
+	'Scission': { 'name': 'Scission', 'icon': 'scissionIcon', 'elements': {'Earth': element_info['Earth']}, 'lvl': 1 },
+	'Detonation': { 'name': 'Detonation', 'icon': 'detonationIcon', 'elements': {'Wind': element_info['Wind']}, 'lvl': 1 },
+	'Reverberation': { 'name': 'Reverberation', 'icon': 'reverberationIcon', 'elements': {'Water': element_info['Water']}, 'lvl': 1 },
+	'Induration': { 'name': 'Induration', 'icon': 'indurationIcon', 'elements': {'Ice': element_info['Ice']}, 'lvl': 1 },
+	'Liquefaction': { 'name': 'Liquefaction', 'icon': 'liquefactionIcon', 'elements': {'Fire': element_info['Fire']}, 'lvl': 1 },
+	'Impaction': { 'name': 'Impaction', 'icon': 'impactionIcon', 'elements': {'Lightning': element_info['Lightning']}, 'lvl': 1 },
+	
+	'Fusion': { 'name': 'Fusion', 'icon': 'fusionIcon', 'elements': {'Fire': element_info['Fire'], 'Light': element_info['Light']}, 'lvl': 2 },
+	'Fragmentation': { 'name': 'Fragmentation', 'icon': 'fragmentationIcon', 'elements': {'Wind': element_info['Wind'], 'Lightning': element_info['Lightning']}, 'lvl': 2 },
+	'Distortion': { 'name': 'Distortion', 'icon': 'distortionIcon', 'elements': {'Ice': element_info['Ice'], 'Water': element_info['Water']}, 'lvl': 2 },
+	'Gravitation': { 'name': 'Gravitation', 'icon': 'gravitationIcon', 'elements': {'Earth': element_info['Earth'], 'Dark': element_info['Dark']}, 'lvl': 2 },
+	
+	'Light': { 'name': 'Light', 'icon': 'lightskillchainIcon', 'elements': {'Fire': element_info['Fire'], 'Lightning': element_info['Lightning'], 'Wind': element_info['Wind'], 'Light': element_info['Light']}, 'lvl': 3 },
+	'Darkness': { 'name': 'Darkness', 'icon': 'darkskillchainIcon', 'elements': {'Ice': element_info['Ice'], 'Water': element_info['Water'], 'Earth': element_info['Earth'], 'Dark': element_info['Dark']}, 'lvl': 3 },
+};
+
+var weapon_info = {
+	'Axe': {
+		'Raging Axe': {'opener': true, 'skillchain': skillchain_info['Liquefaction'], 'icon': 'ragingaxeIcon', 'ability': false},
+		'Avalanche Axe': {'opener': true, 'skillchain': skillchain_info['Impaction'], 'icon': 'smashaxeIcon', 'ability': false},
+		'Smash Axe': {'opener': false, 'skillchain': skillchain_info['Distortion'], 'icon': 'avalancheaxeIcon', 'ability': false},
+		'Rampage': {'opener': false, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'rampageIcon', 'ability': false},
+		'Metatron Torment': {'opener': true, 'skillchain': skillchain_info['Darkness'], 'icon': 'metatrontormentIcon', 'ability': false, 'jobs': ['Warrior']},
+	},
+	'Bow': {
+		'Flame Arrow': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'flamingarrowIcon', 'ability': false},
+		'Sidewinder': {'opener': false, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'sidewinderIcon', 'ability': false},
+		'Apex Arrow': {'opener': true, 'skillchain': skillchain_info['Light'], 'icon': 'apexarrowIcon', 'ability': false, 'jobs': ['Ranger']},
+	},
+	'Club': {
+		'Shining Strike': {'opener': true, 'skillchain': skillchain_info['Induration'], 'icon': 'shiningstrikeIcon', 'ability': false},
+		'True Strike': {'opener': true, 'skillchain': skillchain_info['Distortion'], 'icon': 'truestrikeIcon', 'ability': false},
+		'Brain Shaker': {'opener': false, 'skillchain': skillchain_info['Detonation'], 'icon': 'brainshakerIcon', 'ability': false},
+		'Judgement': {'opener': false, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'judgementIcon', 'ability': false},
+		'Realmrazer': {'opener': false, 'skillchain': skillchain_info['Light'], 'icon': 'realmrazerIcon', 'ability': false, 'jobs': ['White Mage','Bard','Scholar']},
+	},
+	'Dagger': {
+		'Wasp Sting': {'opener': true, 'skillchain': skillchain_info['Detonation'], 'icon': 'waspstingIcon', 'ability': false},
+		'Cyclone': {'opener': true, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'cycloneIcon', 'ability': false},
+		'Viper Bite': {'opener': false, 'skillchain': skillchain_info['Reverberation'], 'icon': 'viperbiteIcon', 'ability': false},
+		'Dancing Edge': {'opener': false, 'skillchain': skillchain_info['Fusion'], 'icon': 'dancingedgeIcon', 'ability': false},
+		'Mercy Stroke': {'opener': false, 'skillchain': skillchain_info['Darkness'], 'icon': 'mercystrokeIcon', 'ability': false, 'jobs': ['Thief','Dancer']},
+	},
+	'Great Katana': {
+		'Tachi: Enpi': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'tachienpiIcon', 'ability': false},
+		'Tachi: Yukikaza': {'opener': false, 'skillchain': skillchain_info['Distortion'], 'icon': 'tachiyukikazaIcon', 'ability': false},
+		'Sekkanoki': {'opener': true, 'skillchain': skillchain_info['Gravitation'], 'icon': 'sekkanokiIcon', 'ability': true},
+		'Konzen-Ittai': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'konzenittaiIcon', 'ability': true},
+		'Sengikori': {'opener': true, 'skillchain': skillchain_info['Distortion'], 'icon': 'sengikoriIcon', 'ability': true},
+		'Yaegasumi': {'opener': true, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'yaegasumiIcon', 'ability': true},
+		'Tachi: Kaiten': {'opener': true, 'skillchain': skillchain_info['Light'], 'icon': 'tachikaitenIcon', 'ability': false, 'jobs': ['Samurai']},
+		'Demonsbane': {'opener': true, 'skillchain': skillchain_info['Light'], 'icon': 'demonsbaneIcon', 'ability': true, 'jobs': ['Samurai']},
+		'Demonhead': {'opener': true, 'skillchain': skillchain_info['Darkness'], 'icon': 'demonheadIcon', 'ability': true, 'jobs': ['Samurai']},
+	},
+	'Great Sword': {
+		'Hard Slash': {'opener': true, 'skillchain': skillchain_info['Gravitation'], 'icon': 'hardslashIcon', 'ability': false},
+		'Frostbite': {'opener': false, 'skillchain': skillchain_info['Distortion'], 'icon': 'frostbiteIcon', 'ability': false},
+		'Resolution': {'opener': true, 'skillchain': skillchain_info['Light'], 'icon': 'resolutionIcon', 'ability': false, 'jobs': ['Rune Knight']},
+		'Cataclysm': {'opener': false, 'skillchain': skillchain_info['Darkness'], 'icon': 'cataclysmIcon', 'ability': false, 'jobs': ['Dark Knight']},
+	},
+	'Gun': {
+		'Heavy Shot': {'opener': true, 'skillchain': skillchain_info['Gravitation'], 'icon': 'heavyshotIcon', 'ability': false},
+		'Slug Shot': {'opener': false, 'skillchain': skillchain_info['Gravitation'], 'icon': 'slugshotIcon', 'ability': false},
+		'Coronach': {'opener': false, 'skillchain': skillchain_info['Darkness'], 'icon': 'coronachIcon', 'ability': false, 'jobs': ['Corsair']},
+	},
+	'Hand-to-Hand': {
+		'Combo': {'opener': true, 'skillchain': skillchain_info['Impaction'], 'icon': 'comboIcon', 'ability': false},
+		'Raging Fists': {'opener': true, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'ragingfistsIcon', 'ability': false},
+		'One Inch Punch': {'opener': false, 'skillchain': skillchain_info['Scission'], 'icon': 'oneinchpunchIcon', 'ability': false},
+		'Dragon Fist': {'opener': false, 'skillchain': skillchain_info['Fusion'], 'icon': 'dragonfistIcon', 'ability': false},
+		'Final Heaven': {'opener': false, 'skillchain': skillchain_info['Light'], 'icon': 'Icon', 'ability': false, 'jobs': ['Monk']},
+	},
+	'Polearm': {
+		'Double Trust': {'opener': true, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'doubletrustIcon', 'ability': false},
+		'Penta Trust': {'opener': false, 'skillchain': skillchain_info['Gravitation'], 'icon': 'pentatrustIcon', 'ability': false},
+		'Stardiver': {'opener': false, 'skillchain': skillchain_info['Darkness'], 'icon': 'stardiverIcon', 'ability': false, 'jobs': ['Dragoon']},
+	},
+	'Staff': {
+		'Shell Crusher': {'opener': true, 'skillchain': skillchain_info['Reverberation'], 'icon': 'shellcrusherIcon', 'ability': false},
+		'Sunburst': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'sunburstIcon', 'ability': false},
+		'Starburst': {'opener': false, 'skillchain': skillchain_info['Induration'], 'icon': 'starburstIcon', 'ability': false},
+		'Soul Syphon': {'opener': false, 'skillchain': skillchain_info['Gravitation'], 'icon': 'soulsyphonIcon', 'ability': false},
+		'Gate of Tartarus': {'opener': true, 'skillchain': skillchain_info['Darkness'], 'icon': 'gateoftartarusIcon', 'ability': false, 'jobs': ['Black Mage']},
+	},
+	'Sword': {
+		'Fast Blade': {'opener': true, 'skillchain': skillchain_info['Scission'], 'icon': 'fastbladeIcon', 'ability': false},
+		'Flat Blade': {'opener': true, 'skillchain': skillchain_info['Gravitation'], 'icon': 'flatbladeIcon', 'ability': false},
+		'Burning Blade': {'opener': false, 'skillchain': skillchain_info['Liquefaction'], 'icon': 'burningbladeIcon', 'ability': false},
+		'Seraph Blade': {'opener': false, 'skillchain': skillchain_info['Fusion'], 'icon': 'seraphbladeIcon', 'ability': false},
+		'Knights of the Round': {'opener': true, 'skillchain': skillchain_info['Light'], 'icon': 'knightsoftheroundIcon', 'ability': false, 'jobs': ['Paladin','Red Mage']},
+		'Immortal Lion': {'opener': false, 'skillchain': skillchain_info['Darkness'], 'icon': 'immortallionIcon', 'ability': false, 'jobs': ['Blue Mage']},
+	},
+	'Katana': {
+		'Blade: Retsu': {'opener': true, 'skillchain': skillchain_info['Distortion'], 'icon': 'bladeretsuIcon', 'ability': false},
+		'Blade: Jin': {'opener': false, 'skillchain': skillchain_info['Distortion'], 'icon': 'bladejinIcon', 'ability': false},
+		'Blade: Metsu': {'opener': true, 'skillchain': skillchain_info['Darkness'], 'icon': 'blademetsuIcon', 'ability': false, 'jobs': ['Ninja']},
+	},
+}
+
+var job_info = {
+	'Bard': {
+		'weapons': {'Club': weapon_info['Club']},
+		'icon': 'bardIcon'
+	},
+	'Black Mage': {
+		'weapons': {'Staff': weapon_info['Staff']},
+		'icon': 'blackmageIcon'
+	},
+	'Blue Mage': {
+		'weapons': {'Sword': weapon_info['Sword'], 'Club': weapon_info['Club']},
+		'icon': 'bluemageIcon'
+	},
+	'Corsair': {
+		'weapons': {'Gun': weapon_info['Gun']},
+		'icon': 'corsairIcon'
+	},
+	'Dancer': {
+		'weapons': {'Dagger': weapon_info['Dagger']},
+		'icon': 'dancerIcon'
+	},
+	'Dark Knight': {
+		'weapons': {'Great Sword': weapon_info['Great Sword']},
+		'icon': 'darkknightIcon'
+	},
+	'Dragoon': {
+		'weapons': {'Polearm': weapon_info['Polearm']},
+		'icon': 'dragoonIcon'
+	},
+	'Monk': {
+		'weapons': {'Hand-to-Hand': weapon_info['Hand-to-Hand']},
+		'icon': 'monkIcon'
+	},
+	'Ninja': {
+		'weapons': {'Katana': weapon_info['Katana']},
+		'icon': 'ninjaIcon'
+	},
+	'Paladin': {
+		'weapons': {'Sword': weapon_info['Sword']},
+		'icon': 'paladinIcon'
+	},
+	'Ranger': {
+		'weapons': {'Bow': weapon_info['Bow']},
+		'icon': 'rangerIcon'
+	},
+	'Red Mage': {
+		'weapons': {'Sword': weapon_info['Sword']},
+		'icon': 'redmageIcon'
+	},
+	'Rune Knight': {
+		'weapons': {'Great Sword': weapon_info['Great Sword']},
+		'icon': 'runeknightIcon'
+	},
+	'Samurai': {
+		'weapons': {'Great Katana': weapon_info['Great Katana']},
+		'icon': 'samuraiIcon'
+	},
+	'Scholar': {
+		'weapons': {'Staff': weapon_info['Staff'], 'Club': weapon_info['Club']},
+		'icon': 'scholarIcon'
+	},
+	'Thief': {
+		'weapons': {'Dagger': weapon_info['Dagger']},
+		'icon': 'thiefIcon'
+	},
+	'Warrior': {
+		'weapons': {'Sword': weapon_info['Sword'], 'Axe': weapon_info['Axe']},
+		'icon': 'warriorIcon'
+	},
+	'White Mage': {
+		'weapons': {'Club': weapon_info['Club']},
+		'icon': 'whitemageIcon'
+	},
+};
+
+var selected_weapons = {
+	weapon1: '',
+	weapon2: '',
+	weapon3: '',
+	weapon4: '',
+}
+
+var selected_jobs = {
+	job1: '',
+	job2: '',
+	job3: '',
+	job4: '',
+};
+
+var selfskillchains = true;
+var relicskillchains = true;
+
+$.each(job_info, function(key, value) {
+	$('#selectJob1').append($('<option>', {
+		'value': key,
+		'text': key
+	  })
+	);
+	$('#selectJob2').append($('<option>', {
+		'value': key,
+		'text': key
+	  })
+	);
+	$('#selectJob3').append($('<option>', {
+		'value': key,
+		'text': key
+	  })
+	);
+	$('#selectJob4').append($('<option>', {
+		'value': key,
+		'text': key
+	  })
+	);
+});
+
+$.each(weapon_info, function(key, value) {
+	$('#selectWeapon1').append($('<option>', {
+		'value': key,
+		'text': key
+	  })
+	);
+	$('#selectWeapon2').append($('<option>', {
+		'value': key,
+		'text': key
+	  })
+	);
+	$('#selectWeapon3').append($('<option>', {
+		'value': key,
+		'text': key
+	  })
+	);
+	$('#selectWeapon4').append($('<option>', {
+		'value': key,
+		'text': key
+	  })
+	);
+});
+
+//***************
+// EVENTS
+//***************
+$("#selectWeapon1").change(selectWeapon);
+$("#selectWeapon2").change(selectWeapon);
+$("#selectWeapon3").change(selectWeapon);
+$("#selectWeapon4").change(selectWeapon);
+
+$("#selectJob1").change(selectJob);
+$("#selectJob2").change(selectJob);
+$("#selectJob3").change(selectJob);
+$("#selectJob4").change(selectJob);
+
+$("#clearJobs").click(clearJobSelects);
+$("#clearWeapons").click(clearWeaponSelects);
+
+$("#selfSkillchains").change(function() {
+    if(this.checked) { selfskillchains = true; }
+	else { selfskillchains = false; }
+	
+	if (selected_weapons.weapon1 != '' || selected_jobs.weapon2 != '' || selected_jobs.weapon3 != '' || selected_jobs.weapon4 != '')
+		calculate_by_weapons();
+	if (selected_jobs.job1 != '' || selected_jobs.job2 != '' || selected_jobs.job3 != '' || selected_jobs.job4 != '')
+		calculate_by_jobs();
+});
+$("#relicSkillchains").change(function() {
+    if(this.checked) { relicskillchains = true; }
+	else { relicskillchains = false; }
+	
+	if (selected_weapons.weapon1 != '' || selected_jobs.weapon2 != '' || selected_jobs.weapon3 != '' || selected_jobs.weapon4 != '')
+		calculate_by_weapons();
+	if (selected_jobs.job1 != '' || selected_jobs.job2 != '' || selected_jobs.job3 != '' || selected_jobs.job4 != '')
+		calculate_by_jobs();
+});
+
+$('#toggleIconsBtn').click(toggleIcons);
+$('#collapseIconsBtn').click(toggleIcons);
+
+
+//***************
+// METHODS
+//***************
+function toggleIcons() {
+	var icon = $('.icontoggle').first();
+	
+	if (icon.hasClass('fa-caret-down')) {
+		icon.removeClass('fa-caret-down');
+		icon.addClass('fa-caret-up');
+	} else {
+		icon.removeClass('fa-caret-up');
+		icon.addClass('fa-caret-down');
+	}
+}
+function selectWeapon() {
+	var selected = $('#' + this.id + ' option:selected').text();
+	var key = 'weapon' + this.id.substring(this.id.length, this.id.length-1)
+	if (!selected || selected == 'Choose...' ) {
+		selected_weapons[key] = '';
+	}
+	else {
+		selected_weapons[key] = selected;
+	}
+	clearJobSelects();
+	calculate_by_weapons();
+}
+function selectJob() {
+	var selected = $('#' + this.id + ' option:selected').text();
+	var key = 'job' + this.id.substring(this.id.length, -1)
+	if (!selected || selected == 'Choose...' ) {
+		selected_jobs[key] = '';
+	}
+	else {
+		selected_jobs[key] = selected;
+	}
+	clearWeaponSelects();
+	calculate_by_jobs();
+}
+
+function clearJobSelects() {
+	$("#selectJob1").val('Choose...');
+	$("#selectJob2").val('Choose...');
+	$("#selectJob3").val('Choose...');
+	$("#selectJob4").val('Choose...');
+	selected_jobs = {};
+}
+function clearWeaponSelects() {
+	$("#selectWeapon1").val('Choose...');
+	$("#selectWeapon2").val('Choose...');
+	$("#selectWeapon3").val('Choose...');
+	$("#selectWeapon4").val('Choose...');
+	selected_weapons = {};
+}
+
+function calculate_by_weapons() {
+	var list = [];
+	
+	$.each(selected_weapons, function(outer, weapon) {
+		if (weapon) {		
+			$.each(weapon_info[weapon], function(ws, wsinfo) {
+				if (wsinfo.opener) {
+					$.each(selected_weapons, function(inner, innerweapon) {
+						if (innerweapon) {
+							if (selfskillchains == true || (inner != outer && !selfskillchains)) {
+								$.each(weapon_info[innerweapon], function(innerws, innerwsinfo) {
+									if (!innerwsinfo.opener && innerwsinfo.skillchain.name == wsinfo.skillchain.name) {
+										var weaponicon = weapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
+										var innerweaponicon = innerweapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
+										
+										var wsicon = '';
+										if (wsinfo.icon) {
+											wsicon = wsinfo.icon;
+										}
+										
+										var innerwsicon = '';
+										if (innerwsinfo.icon) 
+											innerwsicon = innerwsinfo.icon;
+										
+										var scicon = '';
+										if (innerwsinfo.skillchain.icon)
+											scicon = innerwsinfo.skillchain.icon;
+										
+										var scname = wsinfo.skillchain.name;
+										var lvl = innerwsinfo.skillchain.lvl;
+										if (lvl == '3') {
+											if (scname == 'Darkness')
+												scname = rainbow(scname, 50, 50);
+											else
+												scname = rainbow(scname);
+										}
+										
+										var ele = '';
+										if (innerwsinfo.skillchain.elements) {
+											$.each(innerwsinfo.skillchain.elements, function(k, v) {
+												if (ele == '')
+													ele = v;
+												else
+													ele += ',' + v;
+											});
+										}
+										
+										var entry = ' <div class="row display-flex-center row-no-padding text-nowrap" style="width: 100%;padding-top: 10px;">'
+											+ '  <div class="col-1"><div style="display: none;">' + lvl + '</div> <div class="' + weaponicon + ' float-right" data-toggle="tooltip" title="' + weapon + '"></div></div>'
+											+ '  <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + ws + '</div>' 
+											+ '  <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>' 
+											+ '  <div class="col-sm-auto"><div class="' + innerweaponicon + '" data-toggle="tooltip" title="' + innerweapon + '"></div></div>' 
+											+ '	 <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + innerws + '</div>' 
+											+ '	 <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>'
+											+ '	 <div class="col-sm-auto"><div class="' + scicon + ' tip" data-tip="' + ele + '" data-placement="top"></div></div>' 
+											+ '	 <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + scname + '</div>'
+											+ ' </div>';
+										
+										if (!list.includes(entry)) {
+											if (lvl < 3)
+												list.push(entry);
+											else if (lvl == 3 && relicskillchains)
+												list.push(entry);
+										}
+									}
+								});
+							}
+						}
+					});
+				}
+			});
+		}
+	});
+	list.sort();
+	list.reverse();
+	$('#skillchains_container').html(list.join('\n'));	
+	$('[data-toggle="tooltip"]').tooltip();
+	
+	$('.tip').each(function () {
+		var splat = $(this).data('tip').split(',');
+		var str = '<div style="width: 138px;"><div class="row justify-content-center">';
+		for (var i = 0; i < splat.length; i++) {
+			str += '<div class="col-sm-flex"><div class="' + splat[i] + '"></div></div>'
+		}
+		str += '</div></div>';
+		$(this).tooltip({
+			html: true,
+			template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner icons"></div></div>',
+			title: $(str).html()
+		});
+	});
+}
+
+function calculate_by_jobs() {
+	var list = [];
+	
+	$.each(selected_jobs, function(outer, job) {
+		if (job) {
+			$.each(job_info[job].weapons, function(weapon, weaponskills) {
+				$.each(weaponskills, function(ws, wsinfo) {
+					if (wsinfo.opener) {
+						$.each(selected_jobs, function(inner, innerjob) {
+							if (innerjob) {
+								if (selfskillchains == true || (inner != outer && !selfskillchains)) {
+									$.each(job_info[innerjob].weapons, function(innerweapon, innerweaponskills) {
+										$.each(innerweaponskills, function(innerws, innerwsinfo) {
+											if (!innerwsinfo.opener && innerwsinfo.skillchain.name == wsinfo.skillchain.name) {
+												var lvl = wsinfo.skillchain.lvl;
+												var innerlvl = innerwsinfo.skillchain.lvl;
+												
+												var entry = generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, innerwsinfo, lvl, innerlvl);												
+												if (!list.includes(entry)) {
+													if (lvl < 3 && innerlvl < 3) {
+														list.push(entry);
+													}
+													else if (relicskillchains) {	
+														var openOk = true;
+														if (lvl == 3 && !wsinfo.jobs.includes(job)) { openOk = false; }
+														
+														var closeOk = true;
+														if (innerlvl == 3 && !innerwsinfo.jobs.includes(innerjob)) { closeOk = false; }
+														
+														if (openOk && closeOk) {
+															list.push(entry);
+														}
+													}
+												}
+											}
+										});
+									});
+								}
+							}
+						});
+					}
+				});
+			});
+		}
+	});
+	list.sort();
+	list.reverse();
+	$('#skillchains_container').html(list.join('\n'));
+	$('[data-toggle="tooltip"]').tooltip();
+	
+	$('.tip').each(function () {
+		var splat = $(this).data('tip').split(',');
+		var str = '<div style="width: 138px;"><div class="row justify-content-center">';
+		for (var i = 0; i < splat.length; i++) {
+			str += '<div class="col-sm-flex"><div class="' + splat[i] + '"></div></div>'
+		}
+		str += '</div></div>';
+		
+		$(this).tooltip({
+			html: true,
+			template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner icons"></div></div>',
+			title: $(str).html()
+		});
+	});
+}
+
+function generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, innerwsinfo, lvl, innerlvl) {
+	var weaponicon = weapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
+	var innerweaponicon = innerweapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
+	
+	var wsicon = '';
+	if (wsinfo.icon) {
+		wsicon = wsinfo.icon;
+	}
+	
+	var innerwsicon = '';
+	if (innerwsinfo.icon) 
+		innerwsicon = innerwsinfo.icon;
+	
+	var scicon = '';
+	if (innerwsinfo.skillchain.icon)
+		scicon = innerwsinfo.skillchain.icon;
+	
+	var scname = wsinfo.skillchain.name;
+	if (innerlvl == '3') {
+		if (scname == 'Darkness')
+			scname = rainbow(scname, 50, 50);
+		else
+			scname = rainbow(scname);
+	}
+	
+	var ele = '';
+	if (innerwsinfo.skillchain.elements) {
+		$.each(innerwsinfo.skillchain.elements, function(k, v) {
+			if (ele == '')
+				ele = v;
+			else
+				ele += ',' + v;
+		});
+	}
+	
+	var entry = ' <div class="row display-flex-center row-no-padding text-nowrap" style="width: 100%;padding-top: 10px;">'
+		+ '  <div class="col-1"><div style="display: none;">' + innerlvl + '</div> <div class="' + weaponicon + ' float-right" data-toggle="tooltip" title="' + weapon + '"></div></div>'
+		+ '  <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + ws + '</div>' 
+		+ '  <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>' 
+		+ '  <div class="col-sm-auto"><div class="' + innerweaponicon + '" data-toggle="tooltip" title="' + innerweapon + '"></div></div>' 
+		+ '	 <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + innerws + '</div>' 
+		+ '	 <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>'
+		+ '	 <div class="col-sm-auto"><div class="' + scicon + ' tip" data-tip="' + ele + '" data-placement="top"></div></div>' 
+		+ '	 <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + scname + '</div>'
+		+ ' </div>';
+		
+	return entry;
+}
+
+
+function rainbow(str, a, b) {
+	if (!a) { a = '100' } else { a = a.toString(); }
+	if (!b) { b = '70' } else { b = b.toString(); }
+	
+    var multiplier = 10;
+    var result = "";
+    for (var i = 0; i < str.length; i++) {
+        result += "<font class='font-weight-bold' style='color: hsl(" + i * multiplier % 360 + ", " + a + "%, " + b + "%)'>";
+        result += str.substr(i, 1);
+        result += "</font>";
+    }
+    return result;
+}
+
