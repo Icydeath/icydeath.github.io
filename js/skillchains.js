@@ -29,8 +29,8 @@ var skillchain_info = {
 var weapon_info = {
 	'Axe': {
 		'Raging Axe': {'opener': true, 'skillchain': skillchain_info['Liquefaction'], 'icon': 'ragingaxeIcon', 'ability': false},
-		'Avalanche Axe': {'opener': true, 'skillchain': skillchain_info['Impaction'], 'icon': 'smashaxeIcon', 'ability': false},
-		'Smash Axe': {'opener': false, 'skillchain': skillchain_info['Distortion'], 'icon': 'avalancheaxeIcon', 'ability': false},
+		'Smash Axe': {'opener': false, 'skillchain': skillchain_info['Impaction'], 'icon': 'smashaxeIcon', 'ability': false},
+		'Avalanche Axe': {'opener': true, 'skillchain': skillchain_info['Distortion'], 'icon': 'avalancheaxeIcon', 'ability': false},
 		'Rampage': {'opener': false, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'rampageIcon', 'ability': false},
 		'Metatron Torment': {'opener': true, 'skillchain': skillchain_info['Darkness'], 'icon': 'metatrontormentIcon', 'ability': false, 'jobs': ['Warrior']},
 	},
