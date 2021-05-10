@@ -480,37 +480,57 @@ function calculate_by_jobs() {
 }
 
 function generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, innerwsinfo, lvl, innerlvl) {
-	var jobs = '';
-	if (job) {
-		//jobs = job_info[job].icon;
-	}
-	else {
+	var jobIcons = '';
+	if (job == '') {
 		$.each(job_info, function(j, data) {
 			$.each(data.weapons, function(w, wd) {
 				if (w == weapon) {
-					var icon = j.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon'; 
-					if (jobs == '')
-						jobs += icon;
-					else
-						jobs += ',' + icon;
+					if (lvl < 3) {
+						var icon = job_info[j].icon;
+						if (jobIcons == '')
+							jobIcons += icon;
+						else
+							jobIcons += ',' + icon;
+					}
+					else {
+						$.each(wd, function(wskill, wsdata){
+							if (wskill == ws && wsdata.jobs && wsdata.jobs.includes(j)) {
+								var icon = job_info[j].icon;
+								if (jobIcons == '')
+									jobIcons += icon;
+								else
+									jobIcons += ',' + icon;
+							}
+						});
+					}
 				}
 			});
 		});
 	}
 	
-	var innerjobs = '';
-	if (innerjob) {
-		//innerjobs = job_info[innerjob].icon;
-	}
-	else {
+	var innerjobIcons = '';
+	if (innerjob == '') {
 		$.each(job_info, function(j, data) {
 			$.each(data.weapons, function(w, wd) {
 				if (w == innerweapon) {
-					var icon = j.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon'; 
-					if (innerjobs == '')
-						innerjobs += icon;
-					else
-						innerjobs += ',' + icon;
+					if (lvl < 3) {
+						var icon = job_info[j].icon;
+						if (innerjobIcons == '')
+							innerjobIcons += icon;
+						else
+							innerjobIcons += ',' + icon;
+					}
+					else {
+						$.each(wd, function(wskill, wsdata){
+							if (wskill == innerws && wsdata.jobs && wsdata.jobs.includes(j)) {
+								var icon = job_info[j].icon;
+								if (innerjobIcons == '')
+									innerjobIcons += icon;
+								else
+									innerjobIcons += ',' + icon;
+							}
+						});
+					}
 				}
 			});
 		});
@@ -559,20 +579,20 @@ function generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, i
 	var entry = '<div class="row display-flex-center row-no-padding text-nowrap" style="width: 100%;padding-top: 10px;">';
 	
 	entry += '  <div class="col-sm-auto"><div style="display: none;">' + innerlvl + '</div>';
-	if (jobs == '') 
+	if (jobIcons == '') 
 		entry += '  <div class="' + wsicon + ' float-right" data-toggle="tooltip" data-placement="top" title="' + weapon + '"></div>';
 	else 
-		entry += '  <div class="' + wsicon + ' float-right tip" data-tip="' + jobs + '" data-placement="top"></div>';
+		entry += '  <div class="' + wsicon + ' float-right tip" data-tip="' + jobIcons + '" data-placement="top"></div>';
 	entry += '  </div>';
 	
 	entry += '  <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + ws + '</div>';
 	entry += '  <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>';
 	
 	entry += '  <div class="col-sm-auto">'
-	if (innerjobs == '') 
+	if (innerjobIcons == '') 
 		entry += '  <div class="' + innerwsicon + '" data-toggle="tooltip" data-placement="top" title="' + innerweapon + '"></div>';
 	else 
-		entry += '  <div class="' + innerwsicon + ' tip" data-tip="' + innerjobs + '" data-placement="top"></div>';
+		entry += '  <div class="' + innerwsicon + ' tip" data-tip="' + innerjobIcons + '" data-placement="top"></div>';
 	entry += '  </div>';
 	
 	entry += '  <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + innerws + '</div>';
