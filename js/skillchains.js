@@ -135,75 +135,93 @@ var weapon_info = {
 var job_info = {
 	'Bard': {
 		'weapons': {'Club': weapon_info['Club']},
-		'icon': 'bardIcon'
+		'icon': 'bardIcon',
+		'short': 'BRD'
 	},
 	'Black Mage': {
 		'weapons': {'Staff': weapon_info['Staff']},
-		'icon': 'blackmageIcon'
+		'icon': 'blackmageIcon',
+		'short': 'BLM'
 	},
 	'Blue Mage': {
 		'weapons': {'Sword': weapon_info['Sword'], 'Club': weapon_info['Club'], 'Spell': weapon_info['Spell']},
-		'icon': 'bluemageIcon'
+		'icon': 'bluemageIcon',
+		'short': 'BLU'
 	},
 	'Corsair': {
 		'weapons': {'Gun': weapon_info['Gun']},
-		'icon': 'corsairIcon'
+		'icon': 'corsairIcon',
+		'short': 'COR'
 	},
 	'Dancer': {
 		'weapons': {'Dagger': weapon_info['Dagger']},
-		'icon': 'dancerIcon'
+		'icon': 'dancerIcon',
+		'short': 'DNC'
 	},
 	'Dark Knight': {
 		'weapons': {'Great Sword': weapon_info['Great Sword']},
-		'icon': 'darkknightIcon'
+		'icon': 'darkknightIcon',
+		'short': 'DRK'
 	},
 	'Dragoon': {
 		'weapons': {'Polearm': weapon_info['Polearm']},
-		'icon': 'dragoonIcon'
+		'icon': 'dragoonIcon',
+		'short': 'DRG'
 	},
 	'Monk': {
 		'weapons': {'Hand-to-Hand': weapon_info['Hand-to-Hand']},
-		'icon': 'monkIcon'
+		'icon': 'monkIcon',
+		'short': 'MNK'
 	},
 	'Ninja': {
 		'weapons': {'Katana': weapon_info['Katana']},
-		'icon': 'ninjaIcon'
+		'icon': 'ninjaIcon',
+		'short': 'NIN'
 	},
 	'Paladin': {
 		'weapons': {'Sword': weapon_info['Sword']},
-		'icon': 'paladinIcon'
+		'icon': 'paladinIcon',
+		'short': 'PLD'
 	},
 	'Ranger': {
 		'weapons': {'Bow': weapon_info['Bow']},
-		'icon': 'rangerIcon'
+		'icon': 'rangerIcon',
+		'short': 'RNG'
 	},
 	'Red Mage': {
 		'weapons': {'Sword': weapon_info['Sword']},
-		'icon': 'redmageIcon'
+		'icon': 'redmageIcon',
+		'short': 'RDM'
 	},
 	'Rune Knight': {
 		'weapons': {'Great Sword': weapon_info['Great Sword']},
-		'icon': 'runeknightIcon'
+		'icon': 'runeknightIcon',
+		'short': 'RUN'
 	},
 	'Samurai': {
 		'weapons': {'Great Katana': weapon_info['Great Katana']},
-		'icon': 'samuraiIcon'
+		'icon': 'samuraiIcon',
+		'short': 'SAM'
 	},
 	'Scholar': {
 		'weapons': {'Staff': weapon_info['Staff'], 'Club': weapon_info['Club']},
-		'icon': 'scholarIcon'
+		'icon': 'scholarIcon',
+		'short': 'SCH'
 	},
 	'Thief': {
 		'weapons': {'Dagger': weapon_info['Dagger']},
-		'icon': 'thiefIcon'
+		'icon': 'thiefIcon',
+		'short': 'THF'
 	},
 	'Warrior': {
 		'weapons': {'Sword': weapon_info['Sword'], 'Axe': weapon_info['Axe']},
-		'icon': 'warriorIcon'
+		'icon': 'warriorIcon',
+		'short': 'WAR'
 	},
 	'White Mage': {
 		'weapons': {'Club': weapon_info['Club']},
-		'icon': 'whitemageIcon'
+		'icon': 'whitemageIcon',
+		'short': 'WHM'
 	},
 };
 
@@ -486,20 +504,20 @@ function generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, i
 			$.each(data.weapons, function(w, wd) {
 				if (w == weapon) {
 					if (lvl < 3) {
-						var icon = job_info[j].icon;
+						var icon = data.icon;
 						if (jobIcons == '')
-							jobIcons += icon;
+							jobIcons += icon + ';' + data.short;
 						else
-							jobIcons += ',' + icon;
+							jobIcons += ',' + icon + ';' + data.short;
 					}
 					else {
 						$.each(wd, function(wskill, wsdata){
 							if (wskill == ws && wsdata.jobs && wsdata.jobs.includes(j)) {
-								var icon = job_info[j].icon;
+								var icon = data.icon;
 								if (jobIcons == '')
-									jobIcons += icon;
+									jobIcons += icon + ';' + data.short;
 								else
-									jobIcons += ',' + icon;
+									jobIcons += ',' + icon + ';' + data.short;
 							}
 						});
 					}
@@ -514,20 +532,20 @@ function generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, i
 			$.each(data.weapons, function(w, wd) {
 				if (w == innerweapon) {
 					if (lvl < 3) {
-						var icon = job_info[j].icon;
+						var icon = data.icon;
 						if (innerjobIcons == '')
-							innerjobIcons += icon;
+							innerjobIcons += icon + ';' + data.short;
 						else
-							innerjobIcons += ',' + icon;
+							innerjobIcons += ',' + icon + ';' + data.short;
 					}
 					else {
 						$.each(wd, function(wskill, wsdata){
-							if (wskill == innerws && wsdata.jobs && wsdata.jobs.includes(j)) {
-								var icon = job_info[j].icon;
+							if (wskill == ws && wsdata.jobs && wsdata.jobs.includes(j)) {
+								var icon = data.icon;
 								if (innerjobIcons == '')
-									innerjobIcons += icon;
+									innerjobIcons += icon + ';' + data.short;
 								else
-									innerjobIcons += ',' + icon;
+									innerjobIcons += ',' + icon + ';' + data.short;
 							}
 						});
 					}
@@ -611,7 +629,14 @@ function setup_tips() {
 		var splat = $(this).data('tip').split(',');
 		var str = '<div><div class="row">';
 		for (var i = 0; i < splat.length; i++) {
-			str += '<div class="col-sm-flex"><div class="' + splat[i] + '"></div></div>';
+			var icon = splat[i];
+			var txt = '';
+			if (splat[i].includes(';')) {
+				var arr = splat[i].split(';');
+				icon = arr[0];
+				txt = arr[1];
+			}
+			str += '<div class="col-sm-flex"><div class="' + icon + '"></div>' + txt + '</div>';
 		}
 		str += '</div></div>';
 		
