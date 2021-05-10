@@ -56,13 +56,13 @@ var weapon_info = {
 	'Great Katana': {
 		'Tachi: Enpi': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'tachienpiIcon', 'ability': false},
 		'Tachi: Yukikaza': {'opener': false, 'skillchain': skillchain_info['Distortion'], 'icon': 'tachiyukikazaIcon', 'ability': false},
-		'Sekkanoki': {'opener': true, 'skillchain': skillchain_info['Gravitation'], 'icon': 'sekkanokiIcon', 'ability': true},
-		'Konzen-Ittai': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'konzenittaiIcon', 'ability': true},
-		'Sengikori': {'opener': true, 'skillchain': skillchain_info['Distortion'], 'icon': 'sengikoriIcon', 'ability': true},
-		'Yaegasumi': {'opener': true, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'yaegasumiIcon', 'ability': true},
+		'Sekkanoki': {'opener': true, 'skillchain': skillchain_info['Gravitation'], 'icon': 'abilityIcon', 'ability': true},
+		'Konzen-Ittai': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'abilityIcon', 'ability': true},
+		'Sengikori': {'opener': true, 'skillchain': skillchain_info['Distortion'], 'icon': 'abilityIcon', 'ability': true},
+		'Yaegasumi': {'opener': true, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'abilityIcon', 'ability': true},
 		'Tachi: Kaiten': {'opener': true, 'skillchain': skillchain_info['Light'], 'icon': 'tachikaitenIcon', 'ability': false, 'jobs': ['Samurai']},
-		'Demonsbane': {'opener': true, 'skillchain': skillchain_info['Light'], 'icon': 'demonsbaneIcon', 'ability': true, 'jobs': ['Samurai']},
-		'Demonhead': {'opener': true, 'skillchain': skillchain_info['Darkness'], 'icon': 'demonheadIcon', 'ability': true, 'jobs': ['Samurai']},
+		'Demonsbane': {'opener': true, 'skillchain': skillchain_info['Light'], 'icon': 'abilityIcon', 'ability': true, 'jobs': ['Samurai']},
+		'Demonhead': {'opener': true, 'skillchain': skillchain_info['Darkness'], 'icon': 'abilityIcon', 'ability': true, 'jobs': ['Samurai']},
 	},
 	'Great Sword': {
 		'Hard Slash': {'opener': true, 'skillchain': skillchain_info['Gravitation'], 'icon': 'hardslashIcon', 'ability': false},
@@ -419,20 +419,7 @@ function calculate_by_weapons() {
 	list.reverse();
 	$('#skillchains_container').html(list.join('\n'));	
 	$('[data-toggle="tooltip"]').tooltip();
-	
-	$('.tip').each(function () {
-		var splat = $(this).data('tip').split(',');
-		var str = '<div style="width: 138px;"><div class="row justify-content-center">';
-		for (var i = 0; i < splat.length; i++) {
-			str += '<div class="col-sm-flex"><div class="' + splat[i] + '"></div></div>'
-		}
-		str += '</div></div>';
-		$(this).tooltip({
-			html: true,
-			template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner icons"></div></div>',
-			title: $(str).html()
-		});
-	});
+	setup_tips();
 }
 
 function calculate_by_jobs() {
@@ -489,32 +476,63 @@ function calculate_by_jobs() {
 	list.reverse();
 	$('#skillchains_container').html(list.join('\n'));
 	$('[data-toggle="tooltip"]').tooltip();
-	
-	$('.tip').each(function () {
-		var splat = $(this).data('tip').split(',');
-		var str = '<div style="width: 138px;"><div class="row justify-content-center">';
-		for (var i = 0; i < splat.length; i++) {
-			str += '<div class="col-sm-flex"><div class="' + splat[i] + '"></div></div>'
-		}
-		str += '</div></div>';
-		
-		$(this).tooltip({
-			html: true,
-			template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner icons"></div></div>',
-			title: $(str).html()
-		});
-	});
+	setup_tips();
 }
 
 function generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, innerwsinfo, lvl, innerlvl) {
+	var jobs = '';
+	if (job) {
+		//jobs = job_info[job].icon;
+	}
+	else {
+		$.each(job_info, function(j, data) {
+			$.each(data.weapons, function(w, wd) {
+				if (w == weapon) {
+					var icon = j.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon'; 
+					if (jobs == '')
+						jobs += icon;
+					else
+						jobs += ',' + icon;
+				}
+			});
+		});
+	}
+	
+	var innerjobs = '';
+	if (innerjob) {
+		//innerjobs = job_info[innerjob].icon;
+	}
+	else {
+		$.each(job_info, function(j, data) {
+			$.each(data.weapons, function(w, wd) {
+				if (w == innerweapon) {
+					var icon = j.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon'; 
+					if (innerjobs == '')
+						innerjobs += icon;
+					else
+						innerjobs += ',' + icon;
+				}
+			});
+		});
+	}
+	
 	var wsicon = weapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
 	if (wsinfo.icon && weapon == 'Spell') {
 		wsicon = wsinfo.icon;
 	}
+	else if (wsinfo.icon && wsinfo.ability) {
+		weapon = 'Ability';
+		wsicon = wsinfo.icon;
+	}
 	
 	var innerwsicon = innerweapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
-	if (innerwsinfo.icon && innerweapon == 'Spell') 
+	if (innerwsinfo.icon && innerweapon == 'Spell') {
 		innerwsicon = innerwsinfo.icon;
+	}
+	else if (innerwsinfo.icon && innerwsinfo.ability) {
+		innerweapon = 'Ability';
+		innerwsicon = innerwsinfo.icon;
+	}
 	
 	var scicon = '';
 	if (innerwsinfo.skillchain.icon)
@@ -538,21 +556,52 @@ function generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, i
 		});
 	}
 	
-	var entry = ' <div class="row display-flex-center row-no-padding text-nowrap" style="width: 100%;padding-top: 10px;">'
-		+ '  <div class="col-1"><div style="display: none;">' + innerlvl + '</div>' 
-		+ '  <div class="' + wsicon + ' float-right" data-toggle="tooltip" title="' + weapon + '"></div></div>'
-		+ '  <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + ws + '</div>' 
-		+ '  <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>' 
-		+ '  <div class="col-sm-auto"><div class="' + innerwsicon + '" data-toggle="tooltip" title="' + innerweapon + '"></div></div>' 
-		+ '	 <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + innerws + '</div>' 
-		+ '	 <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>'
-		+ '	 <div class="col-sm-auto"><div class="' + scicon + ' tip" data-tip="' + ele + '" data-placement="top"></div></div>' 
-		+ '	 <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + scname + '</div>'
-		+ ' </div>';
+	var entry = '<div class="row display-flex-center row-no-padding text-nowrap" style="width: 100%;padding-top: 10px;">';
+	
+	entry += '  <div class="col-sm-auto"><div style="display: none;">' + innerlvl + '</div>';
+	if (jobs == '') 
+		entry += '  <div class="' + wsicon + ' float-right" data-toggle="tooltip" data-placement="top" title="' + weapon + '"></div>';
+	else 
+		entry += '  <div class="' + wsicon + ' float-right tip" data-tip="' + jobs + '" data-placement="top"></div>';
+	entry += '  </div>';
+	
+	entry += '  <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + ws + '</div>';
+	entry += '  <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>';
+	
+	entry += '  <div class="col-sm-auto">'
+	if (innerjobs == '') 
+		entry += '  <div class="' + innerwsicon + '" data-toggle="tooltip" data-placement="top" title="' + innerweapon + '"></div>';
+	else 
+		entry += '  <div class="' + innerwsicon + ' tip" data-tip="' + innerjobs + '" data-placement="top"></div>';
+	entry += '  </div>';
+	
+	entry += '  <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + innerws + '</div>';
+	entry += '  <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>';
+		
+	entry += '  <div class="col-sm-auto"><div class="' + scicon + ' tip" data-tip="' + ele + '" data-placement="top"></div></div>';
+	entry += '  <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + scname + '</div>';
+	
+	entry += '</div>'; //end of row
 		
 	return entry;
 }
 
+function setup_tips() {
+	$('.tip').each(function () {
+		var splat = $(this).data('tip').split(',');
+		var str = '<div><div class="row">';
+		for (var i = 0; i < splat.length; i++) {
+			str += '<div class="col-sm-flex"><div class="' + splat[i] + '"></div></div>';
+		}
+		str += '</div></div>';
+		
+		$(this).tooltip({
+			html: true,
+			template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner icons"></div></div>',
+			title: $(str).html()
+		});
+	});
+}
 
 function rainbow(str, a, b) {
 	if (!a) { a = '100' } else { a = a.toString(); }

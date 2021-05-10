@@ -156,7 +156,7 @@
   background-image: url(../images/IconSet.png);
   width:32px;
   height:32px;
-  background-position: -256px -224px; /*-352px -224px;*/
+  background-position: -0px -2784px; /*-352px -224px;*/
 }
 .gunIcon {
   background-image: url(../images/IconSet.png);
@@ -323,9 +323,16 @@
   height:32px;
   background-position: -224px -128px;
 }
+
 .physicalIcon {
   background-image: url(../images/IconSet.png);
   width:32px;
   height:32px;
   background-position: -480px -0px;
+}
+.abilityIcon {
+  background-image: url(../images/IconSet.png);
+  width:32px;
+  height:32px;
+  background-position: -288px -128px;
 }
