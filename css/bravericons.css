@@ -168,7 +168,7 @@
   background-image: url(../images/IconSet.png);
   width:32px;
   height:32px;
-  background-position: -0px -2464px;
+  background-position: -0px -2496px;
 }
 .polearmIcon {
   background-image: url(../images/IconSet.png);
@@ -322,4 +322,10 @@
   width:32px;
   height:32px;
   background-position: -224px -128px;
+}
+.physicalIcon {
+  background-image: url(../images/IconSet.png);
+  width:32px;
+  height:32px;
+  background-position: -480px -0px;
 }

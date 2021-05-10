@@ -87,6 +87,29 @@ var weapon_info = {
 		'Penta Trust': {'opener': false, 'skillchain': skillchain_info['Gravitation'], 'icon': 'pentatrustIcon', 'ability': false},
 		'Stardiver': {'opener': false, 'skillchain': skillchain_info['Darkness'], 'icon': 'stardiverIcon', 'ability': false, 'jobs': ['Dragoon']},
 	},
+	'Spell': {
+		'Sickle Slash': {'opener': true, 'skillchain': skillchain_info['Impaction'], 'icon': 'physicalIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Screwdriver': {'opener': false, 'skillchain': skillchain_info['Reverberation'], 'icon': 'waterIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Blastbomb': {'opener': false, 'skillchain': skillchain_info['Liquefaction'], 'icon': 'fireIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Feather Storm': {'opener': true, 'skillchain': skillchain_info['Detonation'], 'icon': 'windIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Head Butt': {'opener': false, 'skillchain': skillchain_info['Impaction'], 'icon': 'physicalIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Death Scissors': {'opener': true, 'skillchain': skillchain_info['Induration'], 'icon': 'physicalIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Power Attack': {'opener': true, 'skillchain': skillchain_info['Reverberation'], 'icon': 'physicalIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Foot Kick': {'opener': true, 'skillchain': skillchain_info['Liquefaction'], 'icon': 'physicalIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Jet Stream': {'opener': false, 'skillchain': skillchain_info['Detonation'], 'icon': 'windIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Helldive': {'opener': true, 'skillchain': skillchain_info['Scission'], 'icon': 'physicalIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Cursed Sphere': {'opener': false, 'skillchain': skillchain_info['Induration'], 'icon': 'waterIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Seedspray': {'opener': false, 'skillchain': skillchain_info['Scission'], 'icon': 'waterIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Magnetite Cloud': {'opener': true, 'skillchain': skillchain_info['Gravitation'], 'icon': 'earthIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Hydro Shot': {'opener': true, 'skillchain': skillchain_info['Distortion'], 'icon': 'waterIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Radiant Breath': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'lightIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Body Slam': {'opener': false, 'skillchain': skillchain_info['Fusion'], 'icon': 'fireIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Frost Breath': {'opener': false, 'skillchain': skillchain_info['Distortion'], 'icon': 'iceIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Charged Whisker': {'opener': true, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'lightningIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Blitztrahl': {'opener': false, 'skillchain': skillchain_info['Fragmentation'], 'icon': 'lightningIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Death Ray': {'opener': false, 'skillchain': skillchain_info['Gravitation'], 'icon': 'darkIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		//'': {'opener': false, 'skillchain': skillchain_info[''], 'icon': 'Icon', 'ability': false, 'jobs': ['Blue Mage']},
+	},
 	'Staff': {
 		'Shell Crusher': {'opener': true, 'skillchain': skillchain_info['Reverberation'], 'icon': 'shellcrusherIcon', 'ability': false},
 		'Sunburst': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'sunburstIcon', 'ability': false},
@@ -119,7 +142,7 @@ var job_info = {
 		'icon': 'blackmageIcon'
 	},
 	'Blue Mage': {
-		'weapons': {'Sword': weapon_info['Sword'], 'Club': weapon_info['Club']},
+		'weapons': {'Sword': weapon_info['Sword'], 'Club': weapon_info['Club'], 'Spell': weapon_info['Spell']},
 		'icon': 'bluemageIcon'
 	},
 	'Corsair': {
@@ -189,7 +212,7 @@ var selected_weapons = {
 	weapon2: '',
 	weapon3: '',
 	weapon4: '',
-}
+};
 
 var selected_jobs = {
 	job1: '',
@@ -200,6 +223,7 @@ var selected_jobs = {
 
 var selfskillchains = true;
 var relicskillchains = true;
+var spellskillchains = true;
 
 $.each(job_info, function(key, value) {
 	$('#selectJob1').append($('<option>', {
@@ -263,23 +287,20 @@ $("#selectJob4").change(selectJob);
 $("#clearJobs").click(clearJobSelects);
 $("#clearWeapons").click(clearWeaponSelects);
 
-$("#selfSkillchains").change(function() {
+$("#selfSkillchainsCheckbox").change(function() {
     if(this.checked) { selfskillchains = true; }
 	else { selfskillchains = false; }
-	
-	if (selected_weapons.weapon1 != '' || selected_jobs.weapon2 != '' || selected_jobs.weapon3 != '' || selected_jobs.weapon4 != '')
-		calculate_by_weapons();
-	if (selected_jobs.job1 != '' || selected_jobs.job2 != '' || selected_jobs.job3 != '' || selected_jobs.job4 != '')
-		calculate_by_jobs();
+	pickCalcMethod()
 });
-$("#relicSkillchains").change(function() {
+$("#relicSkillchainsCheckbox").change(function() {
     if(this.checked) { relicskillchains = true; }
 	else { relicskillchains = false; }
-	
-	if (selected_weapons.weapon1 != '' || selected_jobs.weapon2 != '' || selected_jobs.weapon3 != '' || selected_jobs.weapon4 != '')
-		calculate_by_weapons();
-	if (selected_jobs.job1 != '' || selected_jobs.job2 != '' || selected_jobs.job3 != '' || selected_jobs.job4 != '')
-		calculate_by_jobs();
+	pickCalcMethod()
+});
+$("#spellSkillchainsCheckbox").change(function() {
+    if(this.checked) { spellskillchains = true; }
+	else { spellskillchains = false; }
+	pickCalcMethod()
 });
 
 $('#toggleIconsBtn').click(toggleIcons);
@@ -289,6 +310,12 @@ $('#collapseIconsBtn').click(toggleIcons);
 //***************
 // METHODS
 //***************
+function pickCalcMethod() {
+	if (selected_weapons.weapon1 || selected_jobs.weapon2 || selected_jobs.weapon3 || selected_jobs.weapon4)
+		calculate_by_weapons();
+	else
+		calculate_by_jobs();
+}
 function toggleIcons() {
 	var icon = $('.icontoggle').first();
 	
@@ -314,7 +341,7 @@ function selectWeapon() {
 }
 function selectJob() {
 	var selected = $('#' + this.id + ' option:selected').text();
-	var key = 'job' + this.id.substring(this.id.length, -1)
+	var key = 'job' + this.id.substring(this.id.length, this.id.length-1)
 	if (!selected || selected == 'Choose...' ) {
 		selected_jobs[key] = '';
 	}
@@ -330,14 +357,24 @@ function clearJobSelects() {
 	$("#selectJob2").val('Choose...');
 	$("#selectJob3").val('Choose...');
 	$("#selectJob4").val('Choose...');
-	selected_jobs = {};
+	selected_jobs = {
+		job1: '',
+		job2: '',
+		job3: '',
+		job4: '',
+	};
 }
 function clearWeaponSelects() {
 	$("#selectWeapon1").val('Choose...');
 	$("#selectWeapon2").val('Choose...');
 	$("#selectWeapon3").val('Choose...');
 	$("#selectWeapon4").val('Choose...');
-	selected_weapons = {};
+	selected_weapons = {
+		weapon1: '',
+		weapon2: '',
+		weapon3: '',
+		weapon4: '',
+	};
 }
 
 function calculate_by_weapons() {
@@ -352,57 +389,22 @@ function calculate_by_weapons() {
 							if (selfskillchains == true || (inner != outer && !selfskillchains)) {
 								$.each(weapon_info[innerweapon], function(innerws, innerwsinfo) {
 									if (!innerwsinfo.opener && innerwsinfo.skillchain.name == wsinfo.skillchain.name) {
-										var weaponicon = weapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
-										var innerweaponicon = innerweapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
+										var lvl = wsinfo.skillchain.lvl;
+										var innerlvl = innerwsinfo.skillchain.lvl;
 										
-										var wsicon = '';
-										if (wsinfo.icon) {
-											wsicon = wsinfo.icon;
-										}
-										
-										var innerwsicon = '';
-										if (innerwsinfo.icon) 
-											innerwsicon = innerwsinfo.icon;
-										
-										var scicon = '';
-										if (innerwsinfo.skillchain.icon)
-											scicon = innerwsinfo.skillchain.icon;
-										
-										var scname = wsinfo.skillchain.name;
-										var lvl = innerwsinfo.skillchain.lvl;
-										if (lvl == '3') {
-											if (scname == 'Darkness')
-												scname = rainbow(scname, 50, 50);
-											else
-												scname = rainbow(scname);
-										}
-										
-										var ele = '';
-										if (innerwsinfo.skillchain.elements) {
-											$.each(innerwsinfo.skillchain.elements, function(k, v) {
-												if (ele == '')
-													ele = v;
-												else
-													ele += ',' + v;
-											});
-										}
-										
-										var entry = ' <div class="row display-flex-center row-no-padding text-nowrap" style="width: 100%;padding-top: 10px;">'
-											+ '  <div class="col-1"><div style="display: none;">' + lvl + '</div> <div class="' + weaponicon + ' float-right" data-toggle="tooltip" title="' + weapon + '"></div></div>'
-											+ '  <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + ws + '</div>' 
-											+ '  <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>' 
-											+ '  <div class="col-sm-auto"><div class="' + innerweaponicon + '" data-toggle="tooltip" title="' + innerweapon + '"></div></div>' 
-											+ '	 <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + innerws + '</div>' 
-											+ '	 <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>'
-											+ '	 <div class="col-sm-auto"><div class="' + scicon + ' tip" data-tip="' + ele + '" data-placement="top"></div></div>' 
-											+ '	 <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + scname + '</div>'
-											+ ' </div>';
-										
+										var entry = generate_row('', '', weapon, innerweapon, ws, innerws, wsinfo, innerwsinfo, lvl, innerlvl);
 										if (!list.includes(entry)) {
-											if (lvl < 3)
+											if (lvl < 3) {
+												if (weapon != "Spell" && innerweapon != "Spell") {
+													list.push(entry);
+												}
+												else if (spellskillchains && (weapon == "Spell" || innerweapon == "Spell")) {
+													list.push(entry);
+												}
+											}
+											else if (lvl == 3 && relicskillchains) {
 												list.push(entry);
-											else if (lvl == 3 && relicskillchains)
-												list.push(entry);
+											}
 										}
 									}
 								});
@@ -453,12 +455,17 @@ function calculate_by_jobs() {
 												var entry = generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, innerwsinfo, lvl, innerlvl);												
 												if (!list.includes(entry)) {
 													if (lvl < 3 && innerlvl < 3) {
-														list.push(entry);
+														//list.push(entry);
+														if (weapon != "Spell" && innerweapon != "Spell") {
+															list.push(entry);
+														}
+														else if ((weapon == "Spell" || innerweapon == "Spell") && spellskillchains) {
+															list.push(entry);
+														}
 													}
 													else if (relicskillchains) {	
 														var openOk = true;
 														if (lvl == 3 && !wsinfo.jobs.includes(job)) { openOk = false; }
-														
 														var closeOk = true;
 														if (innerlvl == 3 && !innerwsinfo.jobs.includes(innerjob)) { closeOk = false; }
 														
@@ -500,16 +507,13 @@ function calculate_by_jobs() {
 }
 
 function generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, innerwsinfo, lvl, innerlvl) {
-	var weaponicon = weapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
-	var innerweaponicon = innerweapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
-	
-	var wsicon = '';
-	if (wsinfo.icon) {
+	var wsicon = weapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
+	if (wsinfo.icon && weapon == 'Spell') {
 		wsicon = wsinfo.icon;
 	}
 	
-	var innerwsicon = '';
-	if (innerwsinfo.icon) 
+	var innerwsicon = innerweapon.toLowerCase().replaceAll('-','').replaceAll(' ','') + 'Icon';
+	if (innerwsinfo.icon && innerweapon == 'Spell') 
 		innerwsicon = innerwsinfo.icon;
 	
 	var scicon = '';
@@ -535,10 +539,11 @@ function generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, i
 	}
 	
 	var entry = ' <div class="row display-flex-center row-no-padding text-nowrap" style="width: 100%;padding-top: 10px;">'
-		+ '  <div class="col-1"><div style="display: none;">' + innerlvl + '</div> <div class="' + weaponicon + ' float-right" data-toggle="tooltip" title="' + weapon + '"></div></div>'
+		+ '  <div class="col-1"><div style="display: none;">' + innerlvl + '</div>' 
+		+ '  <div class="' + wsicon + ' float-right" data-toggle="tooltip" title="' + weapon + '"></div></div>'
 		+ '  <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + ws + '</div>' 
 		+ '  <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>' 
-		+ '  <div class="col-sm-auto"><div class="' + innerweaponicon + '" data-toggle="tooltip" title="' + innerweapon + '"></div></div>' 
+		+ '  <div class="col-sm-auto"><div class="' + innerwsicon + '" data-toggle="tooltip" title="' + innerweapon + '"></div></div>' 
 		+ '	 <div class="col-2" style="font-size: 20px;margin-left: 10px;">' + innerws + '</div>' 
 		+ '	 <div class="col-1 text-center" style="font-size: 20px;"> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> </div>'
 		+ '	 <div class="col-sm-auto"><div class="' + scicon + ' tip" data-tip="' + ele + '" data-placement="top"></div></div>' 
