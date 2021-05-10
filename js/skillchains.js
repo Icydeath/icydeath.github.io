@@ -540,7 +540,7 @@ function generate_row(job, innerjob, weapon, innerweapon, ws, innerws, wsinfo, i
 					}
 					else {
 						$.each(wd, function(wskill, wsdata){
-							if (wskill == ws && wsdata.jobs && wsdata.jobs.includes(j)) {
+							if (wskill == innerws && wsdata.jobs && wsdata.jobs.includes(j)) {
 								var icon = data.icon;
 								if (innerjobIcons == '')
 									innerjobIcons += icon + ';' + data.short;
