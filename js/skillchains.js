@@ -99,7 +99,7 @@ var weapon_info = {
 		'Jet Stream': {'opener': false, 'skillchain': skillchain_info['Detonation'], 'icon': 'windIcon', 'ability': false, 'jobs': ['Blue Mage']},
 		'Helldive': {'opener': true, 'skillchain': skillchain_info['Scission'], 'icon': 'physicalIcon', 'ability': false, 'jobs': ['Blue Mage']},
 		'Cursed Sphere': {'opener': false, 'skillchain': skillchain_info['Induration'], 'icon': 'waterIcon', 'ability': false, 'jobs': ['Blue Mage']},
-		'Seedspray': {'opener': false, 'skillchain': skillchain_info['Scission'], 'icon': 'waterIcon', 'ability': false, 'jobs': ['Blue Mage']},
+		'Seedspray': {'opener': false, 'skillchain': skillchain_info['Scission'], 'icon': 'earthIcon', 'ability': false, 'jobs': ['Blue Mage']},
 		'Magnetite Cloud': {'opener': true, 'skillchain': skillchain_info['Gravitation'], 'icon': 'earthIcon', 'ability': false, 'jobs': ['Blue Mage']},
 		'Hydro Shot': {'opener': true, 'skillchain': skillchain_info['Distortion'], 'icon': 'waterIcon', 'ability': false, 'jobs': ['Blue Mage']},
 		'Radiant Breath': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'lightIcon', 'ability': false, 'jobs': ['Blue Mage']},
