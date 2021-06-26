@@ -189,7 +189,7 @@ var job_info = {
 		'short': 'RNG'
 	},
 	'Red Mage': {
-		'weapons': {'Sword': weapon_info['Sword']},
+		'weapons': {'Sword': weapon_info['Sword'], 'Club': weapon_info['Club']},
 		'icon': 'redmageIcon',
 		'short': 'RDM'
 	},
