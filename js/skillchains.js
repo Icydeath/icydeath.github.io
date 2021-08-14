@@ -54,7 +54,7 @@ var weapon_info = {
 		'Mercy Stroke': {'opener': false, 'skillchain': skillchain_info['Darkness'], 'icon': 'mercystrokeIcon', 'ability': false, 'jobs': ['Thief','Dancer']},
 	},
 	'Great Katana': {
-		'Tachi: Enpi': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'tachienpiIcon', 'ability': false},
+		'Tachi: Enpi': {'opener': false, 'skillchain': skillchain_info['Fusion'], 'icon': 'tachienpiIcon', 'ability': false},
 		'Tachi: Yukikaza': {'opener': false, 'skillchain': skillchain_info['Distortion'], 'icon': 'tachiyukikazaIcon', 'ability': false},
 		'Sekkanoki': {'opener': true, 'skillchain': skillchain_info['Gravitation'], 'icon': 'abilityIcon', 'ability': true},
 		'Konzen-Ittai': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'abilityIcon', 'ability': true},
