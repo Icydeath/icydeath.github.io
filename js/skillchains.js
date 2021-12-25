@@ -116,6 +116,7 @@ var weapon_info = {
 		'Starburst': {'opener': false, 'skillchain': skillchain_info['Induration'], 'icon': 'starburstIcon', 'ability': false},
 		'Soul Syphon': {'opener': false, 'skillchain': skillchain_info['Gravitation'], 'icon': 'soulsyphonIcon', 'ability': false},
 		'Gate of Tartarus': {'opener': true, 'skillchain': skillchain_info['Darkness'], 'icon': 'gateoftartarusIcon', 'ability': false, 'jobs': ['Black Mage']},
+		'Gate of the Gods': {'opener': true, 'skillchain': skillchain_info['Light'], 'icon': 'gateofthegodsIcon', 'ability': false, 'jobs': ['Summoner']},
 	},
 	'Sword': {
 		'Fast Blade': {'opener': true, 'skillchain': skillchain_info['Scission'], 'icon': 'fastbladeIcon', 'ability': false},
@@ -137,6 +138,11 @@ var job_info = {
 		'weapons': {'Club': weapon_info['Club']},
 		'icon': 'bardIcon',
 		'short': 'BRD'
+	},
+	'Beastmaster': {
+		'weapons': {'Axe': weapon_info['Axe']},
+		'icon': 'beastmasterIcon',
+		'short': 'BST'
 	},
 	'Black Mage': {
 		'weapons': {'Staff': weapon_info['Staff']},
@@ -207,6 +213,11 @@ var job_info = {
 		'weapons': {'Staff': weapon_info['Staff'], 'Club': weapon_info['Club']},
 		'icon': 'scholarIcon',
 		'short': 'SCH'
+	},
+	'Summoner': {
+		'weapons': {'Staff': weapon_info['Staff']},
+		'icon': 'summonerIcon',
+		'short': 'SMN'
 	},
 	'Thief': {
 		'weapons': {'Dagger': weapon_info['Dagger']},
