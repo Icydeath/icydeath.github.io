@@ -20,7 +20,7 @@
   background-image: url(../images/IconSet.png);
   width:32px;
   height:32px;
-  background-position: -352px -64px;
+  background-position: -64px -352px;
 }
 .blackmageIcon {
   background-image: url(../images/IconSet.png);
@@ -110,7 +110,7 @@
   background-image: url(../images/IconSet.png);
   width:32px;
   height:32px;
-  background-position: -352px -32px;
+  background-position: -32px -352px;
 }
 .thiefIcon {
   background-image: url(../images/IconSet.png);
