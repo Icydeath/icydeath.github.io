@@ -16,6 +16,12 @@
   height:32px;
   background-position: -224px -384px;
 }
+.beastIcon {
+  background-image: url(../images/IconSet.png);
+  width:32px;
+  height:32px;
+  background-position: -352px -64px;
+}
 .blackmageIcon {
   background-image: url(../images/IconSet.png);
   width:32px;
@@ -99,6 +105,12 @@
   width:32px;
   height:32px;
   background-position: -480px -128px;
+}
+.summonerIcon {
+  background-image: url(../images/IconSet.png);
+  width:32px;
+  height:32px;
+  background-position: -352px -32px;
 }
 .thiefIcon {
   background-image: url(../images/IconSet.png);
