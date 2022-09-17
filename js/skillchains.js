@@ -207,6 +207,15 @@ var job_info = {
 		'icon': 'paladinIcon',
 		'short': 'PLD'
 	},
+	'Puppetmaster': {
+		'weapons': {
+			'Other Heads': weapon_info['Other Heads'],
+			'Sharpshot Head': weapon_info['Sharpshot Head'],
+			'Valoredge Head': weapon_info['Valoredge Head']
+		},
+		'icon': 'puppetmasterIcon',
+		'short': 'PUP'
+	},
 	'Ranger': {
 		'weapons': {'Bow': weapon_info['Bow']},
 		'icon': 'rangerIcon',
@@ -251,15 +260,6 @@ var job_info = {
 		'weapons': {'Club': weapon_info['Club']},
 		'icon': 'whitemageIcon',
 		'short': 'WHM'
-	},
-	'Puppetmaster': {
-		'weapons': {
-			'Other Heads': weapon_info['Other Heads'],
-			'Sharpshot Head': weapon_info['Sharpshot Head'],
-			'Valoredge Head': weapon_info['Valoredge Head']
-		},
-		'icon': 'puppetmasterIcon',
-		'short': 'PUP'
 	},
 };
 
