@@ -131,6 +131,24 @@ var weapon_info = {
 		'Blade: Jin': {'opener': false, 'skillchain': skillchain_info['Distortion'], 'icon': 'bladejinIcon', 'ability': false},
 		'Blade: Metsu': {'opener': true, 'skillchain': skillchain_info['Darkness'], 'icon': 'blademetsuIcon', 'ability': false, 'jobs': ['Ninja']},
 	},
+	'Other Heads': {
+		'Slapstick': {'opener': true, 'skillchain': skillchain_info['Scission'], 'icon': 'slapstickIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+		'Knockout': {'opener': true, 'skillchain': skillchain_info['Detonation'], 'icon': 'knockoutIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+		'Magic Mortar': {'opener': true, 'skillchain': skillchain_info['Fusion'], 'icon': 'magicmortarIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+		'Master of Puppets': {'opener': false, 'skillchain': skillchain_info['Light'], 'icon': 'masterofpuppetsIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+	},
+	'Sharpshot Head': {
+		'Arcuballista': {'opener': true, 'skillchain': skillchain_info['Liquefaction'], 'icon': 'arcuballistaIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+		'Daze': {'opener': false, 'skillchain': skillchain_info['Impaction'], 'icon': 'dazeIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+		'Armor Shatterer': {'opener': false, 'skillchain': skillchain_info['Fusion'], 'icon': 'armorshattererIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+		'Master of Puppets': {'opener': false, 'skillchain': skillchain_info['Light'], 'icon': 'masterofpuppetsIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+	},
+	'Valoredge Head': {
+		'Chimera Ripper': {'opener': false, 'skillchain': skillchain_info['Induration'], 'icon': 'chimeraripperIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+		'Cannibalize': {'opener': false, 'skillchain': skillchain_info['Scission'], 'icon': 'cannibalizeIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+		'Bone Crusher': {'opener': false, 'skillchain': skillchain_info['Gravitation'], 'icon': 'bonecrusherIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+		'Master of Puppets': {'opener': false, 'skillchain': skillchain_info['Light'], 'icon': 'masterofpuppetsIcon', 'ability': false, 'jobs': ['Puppetmaster']},
+	},
 }
 
 var job_info = {
@@ -233,6 +251,15 @@ var job_info = {
 		'weapons': {'Club': weapon_info['Club']},
 		'icon': 'whitemageIcon',
 		'short': 'WHM'
+	},
+	'Puppetmaster': {
+		'weapons': {
+			'Other Heads': weapon_info['Other Heads'],
+			'Sharpshot Head': weapon_info['Sharpshot Head'],
+			'Valoredge Head': weapon_info['Valoredge Head']
+		},
+		'icon': 'puppetmasterIcon',
+		'short': 'PUP'
 	},
 };
 

@@ -76,6 +76,12 @@
   height:32px;
   background-position: -0px -256px;
 }
+.puppetmasterIcon {
+  background-image: url(../images/IconSet.png);
+  width:32px;
+  height:32px;
+  background-position: -384px -160px;
+}
 .rangerIcon {
   background-image: url(../images/IconSet.png);
   width:32px;
@@ -206,7 +212,24 @@
   height:32px;
   background-position: -448px -2176px;
 }
-
+.otherheadsIcon {
+  background-image: url(../images/IconSet.png);
+  width:32px;
+  height:32px;
+  background-position: -0px -3328px;
+}
+.sharpshotheadIcon {
+  background-image: url(../images/IconSet.png);
+  width:32px;
+  height:32px;
+  background-position: -96px -256px;
+}
+.valoredgeheadIcon {
+  background-image: url(../images/IconSet.png);
+  width:32px;
+  height:32px;
+  background-position: -128px -256px;
+}
 
 /***********************/
 /***** SKILLCHAINS *****/
